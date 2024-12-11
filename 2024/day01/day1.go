@@ -1,29 +1,26 @@
 package main
 
 import (
+	"advent-of-code/common"
 	"bufio"
 	"errors"
 	"fmt"
+	"log"
 	"math"
 	"os"
 	"path/filepath"
 	"runtime"
 	"slices"
 	"strconv"
-	"strings"
+	"time"
 )
 
 var (
-	leftList    []int
-	rightList   []int
-	distanceSum int
+	leftList        []int
+	rightList       []int
+	distanceSum     int
+	similarityScore int
 )
-
-func splitString(data string) (string, string) {
-	splitString := strings.Fields(data)
-
-	return splitString[0], splitString[1]
-}
 
 func appendToLeftList(value string) error {
 	leftInt, err := strconv.Atoi(value)
@@ -67,7 +64,11 @@ func buildLists() error {
 		fileScanner.Split(bufio.ScanLines)
 
 		for fileScanner.Scan() {
-			leftVal, rightVal := splitString(fileScanner.Text())
+			splitValues := common.SplitString(fileScanner.Text())
+			var (
+				leftVal  = splitValues[0]
+				rightVal = splitValues[1]
+			)
 			appendToLeftList(leftVal)
 			appendToRightList(rightVal)
 		}
@@ -77,6 +78,7 @@ func buildLists() error {
 }
 
 func main() {
+	start := time.Now()
 	err := buildLists()
 
 	if err != nil {
@@ -90,7 +92,19 @@ func main() {
 	for i := 0; i < len(leftList); i++ {
 		var diff = int(math.Abs(float64(leftList[i]) - float64(rightList[i])))
 		distanceSum += diff
+		counter := 0
+		for j := 0; j < len(rightList); j++ {
+			if leftList[i] == rightList[j] {
+				counter++
+			}
+		}
+		similarityScore += leftList[i] * counter
+		counter = 0
 	}
 
 	println(distanceSum)
+	println(similarityScore)
+
+	elapsed := time.Since(start)
+	log.Printf("Binomial took %s", elapsed)
 }
