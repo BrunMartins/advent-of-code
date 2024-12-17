@@ -6,7 +6,7 @@
 
 ## 2024
 
-> **🌟 5/22 🌟**
+> **🌟 5/32 🌟**
 
 | Day                                        | Status | Language |
 | ------------------------------------------ | :----: | -------- |
@@ -21,6 +21,11 @@
 | [Day 9: Disk Fragmenter](2024/day09)       |        |
 | [Day 10: Hoof It](2024/day10)              |        |
 | [Day 11: Plutonian Pebbles](2024/day11)    |        |
+| [Day 12: Garden Pebbles](2024/day11)    |        |
+| [Day 13: Plutonian Pebbles](2024/day11)    |        |
+| [Day 14: Plutonian Pebbles](2024/day11)    |        |
+| [Day 15: Plutonian Pebbles](2024/day11)    |        |
+| [Day 16: Plutonian Pebbles](2024/day11)    |        |
 
 ## Other people doing the Advent of Code
 

@@ -1,1 +1,3 @@
-package day6
+package main
+
+func main()
