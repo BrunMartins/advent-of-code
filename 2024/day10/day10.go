@@ -17,7 +17,7 @@ var (
 	cols      int
 )
 
-func populateTrails() {
+func populateTrails() error {
 	var err error
 	file, err := common.OpenPuzzleInput()
 
@@ -32,6 +32,8 @@ func populateTrails() {
 	}
 	rows = len(trails)
 	cols = len(trails[0])
+
+	return nil
 }
 
 func findAllTrailheads() {

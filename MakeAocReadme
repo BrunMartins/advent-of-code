@@ -1,0 +1,93 @@
+#!/bin/bash
+# Get the target directory (default to current directory if not provided)
+TARGET_DIR=${1:-$(pwd)}
+
+EDITIONS="" 
+
+YEARS=""
+
+TOTAL_STARS=0
+TOTAL_COMPLETED_STARS=0
+
+for year in $(find . -maxdepth 1 -type d -not -name "common" -not -name ".git" -not -name "." | sed 's|^\./||' | sort -n); do
+  days=$(find ./$year -maxdepth 1 -type d -not -name "." -not -name "$year" | sed 's|^\./||' | sort -n)
+  
+  YEAR_TOTAL_STARS=$((2 * $(echo "$days" | wc -l)))
+  YEAR_COMPLETED_STARS=0
+
+  TOTAL_STARS=$((TOTAL_STARS + YEAR_TOTAL_STARS))
+
+  EDITIONS="${EDITIONS}
+  - [$year](#$year)"
+
+  DAY_RESULTS=""
+  for day in $days; do
+
+    DAY_RESULTS="$DAY_RESULTS | $(cat ./$day/puzzleName) |"
+
+    if [[ -f "./$day/completed" ]]; then
+      value=$(cat ./$day/completed)
+      case "$value" in
+        1) 
+          DAY_RESULTS="$DAY_RESULTS ★☆ |"
+          YEAR_COMPLETED_STARS=$(($YEAR_COMPLETED_STARS+1))
+          ;;
+        2) 
+          DAY_RESULTS="$DAY_RESULTS ★★ |"
+          YEAR_COMPLETED_STARS=$(($YEAR_COMPLETED_STARS+2))
+          ;;
+        *) DAY_RESULTS="$DAY_RESULTS ☆☆ |" ;;
+      esac
+    else
+      DAY_RESULTS="$DAY_RESULTS . |"
+    fi
+
+    DAY_RESULTS="$DAY_RESULTS go |
+    "
+  done
+
+  TOTAL_COMPLETED_STARS=$(($TOTAL_COMPLETED_STARS+$YEAR_COMPLETED_STARS))
+
+  YEARS="$YEARS
+  ## $year
+
+  > 🌟 $YEAR_COMPLETED_STARS/$YEAR_TOTAL_STARS 🌟
+
+  | Day | Status | Language |
+  | --- | :---: | --- |
+  $DAY_RESULTS"
+done
+
+# Ensure all leading whitespace is removed from generated YEARS content
+YEARS=$(echo "$YEARS" | sed 's/^[[:space:]]*//')
+
+GLOBAL_TOTAL_STARS=0
+GLOBAL_COMPLETED_STARS=0
+
+# Write the README.md file
+cat <<EOF > "$TARGET_DIR/README.md"
+
+# Advent of Code
+
+### Editions:
+---
+$EDITIONS
+
+---
+### Completed Stars/Total Stars:
+
+> **🌟 $TOTAL_COMPLETED_STARS/$TOTAL_STARS 🌟**
+
+$YEARS
+
+## Other people doing the Advent of Code
+
+- [@bmtavares](https://github.com/bmtavares/adventofcode)
+
+EOF
+
+# Run a Markdown formatter and remove extra blank lines
+# pandoc --from=markdown --to=markdown -s "$TARGET_DIR/README.md" -o "$TARGET_DIR/README.md"
+
+# Inform the user
+echo "README.md generated successfully in $TARGET_DIR"
