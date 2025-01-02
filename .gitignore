@@ -1,3 +1,5 @@
 puzzleinput.txt
+puzzle-test.txt
 .AOC_TOKEN
 *.exe
+*.code-workspace

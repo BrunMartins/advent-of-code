@@ -18,7 +18,7 @@ const (
 	envFile                  = "." + envKey
 	aocInputURL              = "https://adventofcode.com/%d/day/%d/input"
 	puzzleInputFile          = "puzzleinput.txt"
-	nicenessSleep            = 3 * time.Second
+	nicenessSleep            = time.Second
 	firstAOCYear             = 2015
 	christmasDay             = 25
 	yearFolderName           = "%d"
@@ -74,10 +74,28 @@ func getToken(argumentInput string) (string, error) {
 
 func createFolder(day, year int) (string, error) {
 	path := filepath.Join(".", fmt.Sprintf(yearFolderName, year), fmt.Sprintf(dayFolderName, day))
+
+	if exists, _ := dirExists(path); exists {
+		return path, nil
+	}
+
 	err := os.MkdirAll(path, os.ModePerm)
 	return path, err
 }
 
+func dirExists(path string) (bool, error) {
+	_, err := os.Stat(path)
+
+	if err == nil {
+		return true, nil
+	}
+
+	if os.IsNotExist(err) {
+		return false, nil
+	}
+
+	return false, err
+}
 func createInputFile(path, data, filename string, overwrite bool) error {
 	mode := os.O_WRONLY | os.O_CREATE
 	if !overwrite {
@@ -171,10 +189,10 @@ func handlePopulate(token string, year int, placeholder bool) {
 			fmt.Printf("Error handling day %d: %v\n", i, err)
 		}
 
-		if !placeholder && i != lastDay {
-			fmt.Printf("%02d/%02d : %s : Sleeping\n", i, lastDay, progressVisualAsString(lastDay, i))
-			time.Sleep(nicenessSleep)
-		}
+		// if !placeholder && i != lastDay {
+		// 	fmt.Printf("%02d/%02d : %s : Sleeping\n", i, lastDay, progressVisualAsString(lastDay, i))
+		// 	time.Sleep(nicenessSleep)
+		// }
 	}
 	fmt.Printf("%02d/%02d : %s : Done\n", lastDay, lastDay, progressVisualAsString(lastDay, lastDay))
 }

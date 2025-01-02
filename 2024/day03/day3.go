@@ -11,8 +11,10 @@ import (
 )
 
 var (
-	multiplicationRegex = regexp.MustCompile(`(mul\((\d{1,3}\,\d{1,3})\)|do\(\)|don\'t\(\))`)
+	multiplicationRegex = regexp.MustCompile(`(don't\(\)|do\(\)|mul\((\d{1,3},\d{1,3})\))`)
 	finalResult         = 0
+	dontCounter         = 0
+	enabled             = true
 )
 
 func multiplyArray(numbers []int) int {
@@ -24,32 +26,24 @@ func multiplyArray(numbers []int) int {
 }
 
 func evaluateMultiplications(puzzleInput string) {
-	matches := multiplicationRegex.FindAllStringSubmatch(puzzleInput, 30)
-	enabled := true
+	matches := multiplicationRegex.FindAllStringSubmatch(puzzleInput, -1)
 	for _, match := range matches {
 		if match[1] == "do()" {
-			print("Sum ")
 			enabled = true
-			continue
-		}
-
-		if match[1] == "don't()" {
-			print("Don't sum ")
+		} else if match[1] == "don't()" {
+			dontCounter++
+			println(match[1])
 			enabled = false
-			continue
-		}
+		} else if enabled {
 
-		fmt.Println(match[0])
-		if enabled {
-			mulResult := multiplyArray(common.ArrayAtoI(strings.Split(match[2], ",")))
-			finalResult += mulResult
+			finalResult += multiplyArray(common.ArrayAtoI(strings.Split(match[2], ",")))
 		}
 	}
 }
 
 func fixComputer() error {
 
-	file, err := common.OpenPuzzleInput()
+	file, err := common.OpenPuzzleInput(nil)
 	if err != nil {
 		return err
 	}
@@ -57,10 +51,11 @@ func fixComputer() error {
 
 	fileScanner := bufio.NewScanner(file)
 	fileScanner.Split(bufio.ScanLines)
-
 	for fileScanner.Scan() {
 		evaluateMultiplications(fileScanner.Text())
 	}
+
+	println(dontCounter)
 
 	return nil
 }
