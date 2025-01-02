@@ -11,22 +11,22 @@
 ---
 ### Completed Stars/Total Stars:
 
-> **🌟 15/150 🌟**
+> **🌟 21/150 🌟**
 
 
 ## 2015
 
-> 🌟 8/50 🌟
+> 🌟 14/50 🌟
 
 | Day | Status | Language |
 | --- | :---: | --- |
 | Day 1: Not Quite Lisp | ★★ | go |
 | Day 2: I Was Told There Would Be No Math | ★★ | go |
-| Day 3: Perfectly Spherical Houses in a Vacuum | ☆☆ | go |
+| Day 3: Perfectly Spherical Houses in a Vacuum | ★★ | go |
 | Day 4: The Ideal Stocking Stuffer | ★★ | go |
 | Day 5: Doesn&apos;t He Have Intern-Elves For This? | ★★ | go |
-| Day 6: Probably a Fire Hazard | ☆☆ | go |
-| Day 7: Some Assembly Required | ☆☆ | go |
+| Day 6: Probably a Fire Hazard | ★★ | go |
+| Day 7: Some Assembly Required | ★★ | go |
 | Day 8: Matchsticks | ☆☆ | go |
 | Day 9: All in a Single Night | ☆☆ | go |
 | Day 10: Elves Look, Elves Say | ☆☆ | go |
