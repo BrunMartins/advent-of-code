@@ -49,7 +49,7 @@ func isReportSafe(report []int) bool {
 }
 
 func analyzeReports() error {
-	file, err := common.OpenPuzzleInput()
+	file, err := common.OpenPuzzleInput(nil)
 	if err != nil {
 		fmt.Println(err)
 		return err

@@ -19,7 +19,7 @@ const (
 	envFile                  = "." + envKey
 	aocInputURL              = "https://adventofcode.com/%d/day/%d%s"
 	puzzleInputFile          = "puzzleinput.txt"
-	nicenessSleep            = 3 * time.Second
+	nicenessSleep            = time.Second
 	firstAOCYear             = 2015
 	christmasDay             = 25
 	yearFolderName           = "%d"
@@ -27,7 +27,7 @@ const (
 	progressBarChar          = "■"
 	progressInProgChar       = "▪"
 	progressEmptyChar        = "□"
-	scriptFileInitialContent = "//Day%d\npackage main\n\nimport (\n\t\"advent-of-code/common\"\n\t\"bufio\"\n\t\"os\"\n)\n\nvar (\n\tpuzzleInput *os.File\n)\n\nfunc getInputLineScanner() *bufio.Scanner {\n\tfileScanner := bufio.NewScanner(puzzleInput)\n\tfileScanner.Split(bufio.ScanLines)\n\n\treturn fileScanner\n}\n\nfunc main() {\n\tvar err error\n\tpuzzleInput, err = common.OpenPuzzleInput()\n\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\tprintln(puzzleInput)\n\n\t//Content here\n}"
+	scriptFileInitialContent = "//Day%d\npackage main\n\nimport (\n\t\"advent-of-code/common\"\n\t\"bufio\"\n\t\"os\"\n)\n\nvar (\n\tpuzzleInput *os.File\n)\n\nfunc getInputLineScanner() *bufio.Scanner {\n\tfileScanner := bufio.NewScanner(puzzleInput)\n\tfileScanner.Split(bufio.ScanLines)\n\n\treturn fileScanner\n}\n\nfunc main() {\n\tvar err error\n\tpuzzleInput, err = common.OpenPuzzleInput(nil)\n\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\tprintln(puzzleInput)\n\n\t//Content here\n}"
 )
 
 var (
@@ -75,10 +75,28 @@ func getToken(argumentInput string) (string, error) {
 
 func createFolder(day, year int) (string, error) {
 	path := filepath.Join(".", fmt.Sprintf(yearFolderName, year), fmt.Sprintf(dayFolderName, day))
+
+	if exists, _ := dirExists(path); exists {
+		return path, nil
+	}
+
 	err := os.MkdirAll(path, os.ModePerm)
 	return path, err
 }
 
+func dirExists(path string) (bool, error) {
+	_, err := os.Stat(path)
+
+	if err == nil {
+		return true, nil
+	}
+
+	if os.IsNotExist(err) {
+		return false, nil
+	}
+
+	return false, err
+}
 func createInputFile(path, data, filename string, overwrite bool) error {
 	mode := os.O_WRONLY | os.O_CREATE
 	if !overwrite {

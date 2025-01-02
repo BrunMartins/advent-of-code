@@ -1,32 +1,32 @@
-//Day12
+// Day12
 package main
 
 import (
-"advent-of-code/common"
-"bufio"
-"os"
+	"advent-of-code/common"
+	"bufio"
+	"os"
 )
 
 var (
-puzzleInput *os.File
+	puzzleInput *os.File
 )
 
 func getInputLineScanner() *bufio.Scanner {
-fileScanner := bufio.NewScanner(puzzleInput)
-fileScanner.Split(bufio.ScanLines)
+	fileScanner := bufio.NewScanner(puzzleInput)
+	fileScanner.Split(bufio.ScanLines)
 
-return fileScanner
+	return fileScanner
 }
 
 func main() {
 	var err error
-puzzleInput, err = common.OpenPuzzleInput()
+	puzzleInput, err = common.OpenPuzzleInput(nil)
 
-if err != nil {
-panic(err)
-}
+	if err != nil {
+		panic(err)
+	}
 
-println(puzzleInput)
+	println(puzzleInput)
 
-//Content here
+	// Content here
 }

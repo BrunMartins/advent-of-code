@@ -65,7 +65,7 @@ func generateHash() {
 
 func main() {
 	var err error
-	puzzleInput, err = common.OpenPuzzleInput()
+	puzzleInput, err = common.OpenPuzzleInput(nil)
 
 	if err != nil {
 		panic(err)
