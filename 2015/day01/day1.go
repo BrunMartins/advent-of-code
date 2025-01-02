@@ -3,7 +3,6 @@ package main
 
 import (
 	"advent-of-code/common"
-	"bufio"
 	"os"
 )
 
@@ -13,13 +12,6 @@ var (
 	foundBasement              = false
 	firstBasementVisitPosition int
 )
-
-func getInputLineScanner() *bufio.Scanner {
-	fileScanner := bufio.NewScanner(puzzleInput)
-	fileScanner.Split(bufio.ScanLines)
-
-	return fileScanner
-}
 
 func calculateFloorChanges(input string) {
 	for i, char := range input {
@@ -37,7 +29,7 @@ func calculateFloorChanges(input string) {
 }
 
 func iterateInputFile() {
-	scanner := getInputLineScanner()
+	scanner := common.GetInputLineScanner(puzzleInput)
 	for scanner.Scan() {
 		calculateFloorChanges(scanner.Text())
 	}
@@ -45,7 +37,7 @@ func iterateInputFile() {
 
 func main() {
 	var err error
-	puzzleInput, err = common.OpenPuzzleInput()
+	puzzleInput, err = common.OpenPuzzleInput(nil)
 
 	if err != nil {
 		panic(err)

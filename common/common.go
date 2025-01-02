@@ -1,6 +1,7 @@
 package common
 
 import (
+	"bufio"
 	"errors"
 	"os"
 	"path/filepath"
@@ -20,6 +21,13 @@ var (
 	Truthy          = true
 	Falsy           = false
 )
+
+func GetInputLineScanner(puzzleInput *os.File) *bufio.Scanner {
+	fileScanner := bufio.NewScanner(puzzleInput)
+	fileScanner.Split(bufio.ScanLines)
+
+	return fileScanner
+}
 
 func SplitString(data string) []string {
 	splitString := strings.Fields(data)

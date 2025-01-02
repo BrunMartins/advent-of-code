@@ -3,7 +3,6 @@ package main
 
 import (
 	"advent-of-code/common"
-	"bufio"
 	"fmt"
 	"os"
 	"strconv"
@@ -22,13 +21,6 @@ var (
 	instructions         []Instruction
 	originalInstructions []Instruction
 )
-
-func getInputLineScanner() *bufio.Scanner {
-	fileScanner := bufio.NewScanner(puzzleInput)
-	fileScanner.Split(bufio.ScanLines)
-
-	return fileScanner
-}
 
 // ParseInstruction parses a raw instruction string into an Instruction struct
 func ParseInstruction(raw string) Instruction {
@@ -130,7 +122,7 @@ func getValue(input string, wires map[string]uint16) uint16 {
 }
 
 func fetchInstructions() {
-	scanner := getInputLineScanner()
+	scanner := common.GetInputLineScanner(puzzleInput)
 	for scanner.Scan() {
 		originalInstructions = append(originalInstructions, ParseInstruction(scanner.Text()))
 	}

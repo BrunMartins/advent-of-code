@@ -2,7 +2,6 @@ package main
 
 import (
 	"advent-of-code/common"
-	"bufio"
 	"os"
 	"strings"
 )
@@ -12,13 +11,6 @@ var (
 	totalSqFtPaper = 0
 	totalFtRibbon  = 0
 )
-
-func getInputLineScanner() *bufio.Scanner {
-	fileScanner := bufio.NewScanner(puzzleInput)
-	fileScanner.Split(bufio.ScanLines)
-
-	return fileScanner
-}
 
 func calculateAllDimensions(dim string) {
 	dimensions := common.ArrayAtoI(strings.Split(dim, "x"))
@@ -60,7 +52,7 @@ func calculateRibbonLength(dim string) {
 }
 
 func iteratePresents() {
-	scanner := getInputLineScanner()
+	scanner := common.GetInputLineScanner(puzzleInput)
 
 	for scanner.Scan() {
 		text := scanner.Text()

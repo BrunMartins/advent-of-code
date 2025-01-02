@@ -3,7 +3,6 @@ package main
 
 import (
 	"advent-of-code/common"
-	"bufio"
 	"fmt"
 	"os"
 	"strings"
@@ -19,15 +18,8 @@ var (
 	lightsTotalBrightness = 0
 )
 
-func getInputLineScanner() *bufio.Scanner {
-	fileScanner := bufio.NewScanner(puzzleInput)
-	fileScanner.Split(bufio.ScanLines)
-
-	return fileScanner
-}
-
 func iterateLightCommands() {
-	scanner := getInputLineScanner()
+	scanner := common.GetInputLineScanner(puzzleInput)
 
 	for scanner.Scan() {
 		lightCommand := scanner.Text()

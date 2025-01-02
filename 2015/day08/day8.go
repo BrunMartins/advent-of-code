@@ -3,7 +3,6 @@ package main
 
 import (
 	"advent-of-code/common"
-	"bufio"
 	"os"
 )
 
@@ -11,11 +10,14 @@ var (
 	puzzleInput *os.File
 )
 
-func getInputLineScanner() *bufio.Scanner {
-	fileScanner := bufio.NewScanner(puzzleInput)
-	fileScanner.Split(bufio.ScanLines)
+func calculateListSize() {}
 
-	return fileScanner
+func iteratePresentsList() {
+	scanner := common.GetInputLineScanner(puzzleInput)
+
+	for scanner.Scan() {
+
+	}
 }
 
 func main() {

@@ -17,7 +17,7 @@ import (
 const (
 	envKey                   = "AOC_TOKEN"
 	envFile                  = "." + envKey
-	aocInputURL              = "https://adventofcode.com/%d/day/%d%s"
+	aocURL                   = "https://adventofcode.com/%d%s"
 	puzzleInputFile          = "puzzleinput.txt"
 	nicenessSleep            = time.Second
 	firstAOCYear             = 2015
@@ -136,7 +136,7 @@ func createScript(path, data, filename string, overwrite bool) error {
 }
 
 func aocInputRequest(token string, day, year int) (string, error) {
-	url := fmt.Sprintf(aocInputURL, year, day, "/input")
+	url := fmt.Sprintf(aocURL, year, fmt.Sprintf("/day/%d/input", day))
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -156,7 +156,7 @@ func aocInputRequest(token string, day, year int) (string, error) {
 }
 
 func aocPuzzleNameRequest(token string, day, year int) (string, error) {
-	url := fmt.Sprintf(aocInputURL, year, day, "")
+	url := fmt.Sprintf(aocURL, year, fmt.Sprintf("/day/%d", day))
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -187,6 +187,40 @@ func aocPuzzleNameRequest(token string, day, year int) (string, error) {
 	return title, err
 }
 
+func aocPuzzleStarsRequest(token string, day, year int) (string, error) {
+	url := fmt.Sprintf(aocURL, year, "")
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return "0", err
+	}
+
+	req.AddCookie(&http.Cookie{Name: "session", Value: token})
+	req.Header.Set("User-Agent", "https://github.com/brunMartins/advent-of-code")
+	resp, err := client.Do(req)
+	if err != nil {
+		return "0", err
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+
+	bodyText := string(body)
+
+	bodyRegex := regexp.MustCompile(fmt.Sprintf(`Day %d,\s(\w+\s\w+)`, day))
+
+	matches := bodyRegex.FindAllStringSubmatch(bodyText, 1)
+	if len(matches) > 0 {
+		if strings.Contains(matches[0][1], "two") {
+			return "2", err
+		} else {
+			return "1", err
+		}
+	}
+	fmt.Println(matches)
+	return "0", err
+}
+
 func handleDay(token string, day, year int, placeholder bool) error {
 	path, err := createFolder(day, year)
 	if err != nil {
@@ -209,6 +243,13 @@ func handleDay(token string, day, year int, placeholder bool) error {
 		return err
 	}
 
+	puzzleStars := "0"
+	puzzleStars, err = aocPuzzleStarsRequest(token, day, year)
+
+	if err != nil {
+		return err
+	}
+
 	if err = createScript(path, fmt.Sprintf(scriptFileInitialContent, day), fmt.Sprintf("day%d.go", day), false); err != nil {
 		return err
 	}
@@ -217,7 +258,7 @@ func handleDay(token string, day, year int, placeholder bool) error {
 		return err
 	}
 
-	if err = createInputFile(path, "0", "completed", true); err != nil {
+	if err = createInputFile(path, puzzleStars, "completed", true); err != nil {
 		return err
 	}
 

@@ -3,7 +3,6 @@ package main
 
 import (
 	"advent-of-code/common"
-	"bufio"
 	"os"
 	"regexp"
 )
@@ -15,13 +14,6 @@ var (
 	vowels                = []rune{'a', 'e', 'i', 'o', 'u'}
 	disallowedPairsRegexp = regexp.MustCompile(`ab|cd|pq|xy`)
 )
-
-func getInputLineScanner() *bufio.Scanner {
-	fileScanner := bufio.NewScanner(puzzleInput)
-	fileScanner.Split(bufio.ScanLines)
-
-	return fileScanner
-}
 
 func checkNiceString1(str string) {
 	match := disallowedPairsRegexp.FindString(str)
@@ -90,7 +82,7 @@ func checkNiceString2(str string) {
 }
 
 func iterateStrings() {
-	scanner := getInputLineScanner()
+	scanner := common.GetInputLineScanner(puzzleInput)
 
 	for scanner.Scan() {
 		text := scanner.Text()

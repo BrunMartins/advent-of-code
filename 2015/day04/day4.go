@@ -3,7 +3,6 @@ package main
 
 import (
 	"advent-of-code/common"
-	"bufio"
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"
@@ -14,15 +13,8 @@ var (
 	puzzleInput *os.File
 )
 
-func getInputLineScanner() *bufio.Scanner {
-	fileScanner := bufio.NewScanner(puzzleInput)
-	fileScanner.Split(bufio.ScanLines)
-
-	return fileScanner
-}
-
 func generateHash() {
-	scanner := getInputLineScanner()
+	scanner := common.GetInputLineScanner(puzzleInput)
 	scanner.Scan()
 	input := scanner.Text()
 	puzzleInput.Close()
