@@ -29,6 +29,18 @@ func GetInputLineScanner(puzzleInput *os.File) *bufio.Scanner {
 	return fileScanner
 }
 
+func GetWholeInputContent(puzzleInput *os.File) string {
+	fileScanner := bufio.NewScanner(puzzleInput)
+	fileScanner.Split(bufio.ScanLines)
+
+	content := ""
+	for fileScanner.Scan() {
+		content += fileScanner.Text()
+	}
+
+	return content
+}
+
 func SplitString(data string) []string {
 	splitString := strings.Fields(data)
 
@@ -49,7 +61,7 @@ func createPathToPuzzleInput(file string) (*string, error) {
 
 func OpenPuzzleInput(testMode *bool) (*os.File, error) {
 	var file *string
-	if testMode != &defaultTestMode {
+	if testMode != nil && testMode != &defaultTestMode {
 		file, _ = createPathToPuzzleInput(puzzleTestInput)
 	} else {
 		file, _ = createPathToPuzzleInput(puzzleInput)
