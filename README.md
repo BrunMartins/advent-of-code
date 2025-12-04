@@ -4,7 +4,7 @@
 
 ## 📊 Overall Progress
 
-> **🌟 31/158 🌟** (19% complete)
+> **🌟 33/158 🌟** (20% complete)
 
 ## 📅 Editions
 
@@ -115,13 +115,13 @@
 
 ## 2025
 
-> 🌟 4/8 🌟 (50%)
+> 🌟 6/8 🌟 (75%)
 
 | Day | Status | Language |
 | --- | :---: | --- |
 | Day 1: Secret Entrance | ★★ | js |
 | Day 2: Gift Shop | ★★ | js |
-| Day 3: Lobby | ☆☆ | js |
+| Day 3: Lobby | ★★ | js |
 | Day 4: Printing Department | ☆☆ | js |
 
 
@@ -133,4 +133,4 @@
 ## 👥 Other People Doing Advent of Code
 
 ---
-*README generated on December 04, 2025 at 22:26*
+*README generated on December 04, 2025 at 22:28*
