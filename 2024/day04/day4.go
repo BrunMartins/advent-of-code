@@ -184,7 +184,7 @@ func solveTheSoup(target *string, row int, col int, diagonalOnly *bool) int {
 		for _, coords := range X {
 			for _, coord := range coords {
 				substr := ""
-				fmt.Println(coord)
+				// fmt.Println(coord)
 				if coord[0][0] < 0 || coord[0][0] >= rows || coord[1][0] < 0 || coord[1][0] >= rows || coord[2][0] < 0 || coord[2][0] >= rows || coord[0][1] < 0 || coord[0][1] >= cols || coord[1][1] < 0 || coord[1][1] >= cols || coord[2][1] < 0 || coord[2][1] >= cols {
 					break
 				}
@@ -193,11 +193,11 @@ func solveTheSoup(target *string, row int, col int, diagonalOnly *bool) int {
 				if substr == "SAM" || substr == "MAS" {
 					if isFirstMatch {
 						isFirstMatch = false
-						fmt.Println(coord, " is the first match of MAS or SAM")
+						// fmt.Println(coord, " is the first match of MAS or SAM")
 					} else {
 						isFirstMatch = true
 						totalOccurencesOfMasX++
-						fmt.Println(coords, " is a full match")
+						// fmt.Println(coords, " is a full match")
 					}
 				} else {
 				}
