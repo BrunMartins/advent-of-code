@@ -1,116 +1,136 @@
-
 # Advent of Code
 
-### Editions:
----
+*My solutions for [Advent of Code](https://adventofcode.com/) challenges.*
+
+## 📊 Overall Progress
+
+> **🌟 31/158 🌟** (19% complete)
+
+## 📅 Editions
+
 
   - [2015](#2015)
   - [2016](#2016)
   - [2024](#2024)
+  - [2025](#2025)
 
 ---
-### Completed Stars/Total Stars:
-
-> **🌟 21/150 🌟**
 
 
 ## 2015
 
-> 🌟 14/50 🌟
+> 🌟 20/50 🌟 (40%)
 
 | Day | Status | Language |
 | --- | :---: | --- |
-| Day 1: Not Quite Lisp | ★★ | go |
-| Day 2: I Was Told There Would Be No Math | ★★ | go |
-| Day 3: Perfectly Spherical Houses in a Vacuum | ★★ | go |
-| Day 4: The Ideal Stocking Stuffer | ★★ | go |
-| Day 5: Doesn&apos;t He Have Intern-Elves For This? | ★★ | go |
-| Day 6: Probably a Fire Hazard | ★★ | go |
-| Day 7: Some Assembly Required | ★★ | go |
-| Day 8: Matchsticks | ☆☆ | go |
-| Day 9: All in a Single Night | ☆☆ | go |
-| Day 10: Elves Look, Elves Say | ☆☆ | go |
-| Day 11: Corporate Policy | ☆☆ | go |
-| Day 12: JSAbacusFramework.io | ☆☆ | go |
-| Day 13: Knights of the Dinner Table | ☆☆ | go |
-| Day 14: Reindeer Olympics | ☆☆ | go |
-| Day 15: Science for Hungry People | ☆☆ | go |
-| Day 16: Aunt Sue | ☆☆ | go |
-| Day 17: No Such Thing as Too Much | ☆☆ | go |
-| Day 18: Like a GIF For Your Yard | ☆☆ | go |
-| Day 19: Medicine for Rudolph | ☆☆ | go |
-| Day 20: Infinite Elves and Infinite Houses | ☆☆ | go |
-| Day 21: RPG Simulator 20XX | ☆☆ | go |
-| Day 22: Wizard Simulator 20XX | ☆☆ | go |
-| Day 23: Opening the Turing Lock | ☆☆ | go |
-| Day 24: It Hangs in the Balance | ☆☆ | go |
-| Day 25: Let It Snow | ☆☆ | go |
-
+ | Day 1: Not Quite Lisp | ★★ | go (template) |
+     | Day 2: I Was Told There Would Be No Math | ★★ | go |
+     | Day 3: Perfectly Spherical Houses in a Vacuum | ★★ | go |
+     | Day 4: The Ideal Stocking Stuffer | ★★ | go |
+     | Day 5: Doesn&apos;t He Have Intern-Elves For This? | ★★ | go |
+     | Day 6: Probably a Fire Hazard | ★★ | go |
+     | Day 7: Some Assembly Required | ★★ | go |
+     | Day 8: Matchsticks | ★★ | go |
+     | Day 9: All in a Single Night | ★★ | go |
+     | Day 10: Elves Look, Elves Say | ★★ | go |
+     | Day 11: Corporate Policy | ☆☆ | go |
+     | Day 12: JSAbacusFramework.io | ☆☆ | go |
+     | Day 13: Knights of the Dinner Table | ☆☆ | go (template) |
+     | Day 14: Reindeer Olympics | ☆☆ | go (template) |
+     | Day 15: Science for Hungry People | ☆☆ | go (template) |
+     | Day 16: Aunt Sue | ☆☆ | go (template) |
+     | Day 17: No Such Thing as Too Much | ☆☆ | go (template) |
+     | Day 18: Like a GIF For Your Yard | ☆☆ | go (template) |
+     | Day 19: Medicine for Rudolph | ☆☆ | go (template) |
+     | Day 20: Infinite Elves and Infinite Houses | ☆☆ | go (template) |
+     | Day 21: RPG Simulator 20XX | ☆☆ | go (template) |
+     | Day 22: Wizard Simulator 20XX | ☆☆ | go (template) |
+     | Day 23: Opening the Turing Lock | ☆☆ | go (template) |
+     | Day 24: It Hangs in the Balance | ☆☆ | go (template) |
+     | Day 25: Let It Snow | ☆☆ | go (template) |
+    
 ## 2016
 
-> 🌟 0/50 🌟
+> 🌟 0/50 🌟 (0%)
 
 | Day | Status | Language |
 | --- | :---: | --- |
-| Day 1: No Time for a Taxicab | ☆☆ | go |
-| Day 2: Bathroom Security | ☆☆ | go |
-| Day 3: Squares With Three Sides | ☆☆ | go |
-| Day 4: Security Through Obscurity | ☆☆ | go |
-| Day 5: How About a Nice Game of Chess? | ☆☆ | go |
-| Day 6: Signals and Noise | ☆☆ | go |
-| Day 7: Internet Protocol Version 7 | ☆☆ | go |
-| Day 8: Two-Factor Authentication | ☆☆ | go |
-| Day 9: Explosives in Cyberspace | ☆☆ | go |
-| Day 10: Balance Bots | ☆☆ | go |
-| Day 11: Radioisotope Thermoelectric Generators | ☆☆ | go |
-| Day 12: Leonardo&apos;s Monorail | ☆☆ | go |
-| Day 13: A Maze of Twisty Little Cubicles | ☆☆ | go |
-| Day 14: One-Time Pad | ☆☆ | go |
-| Day 15: Timing is Everything | ☆☆ | go |
-| Day 16: Dragon Checksum | ☆☆ | go |
-| Day 17: Two Steps Forward | ☆☆ | go |
-| Day 18: Like a Rogue | ☆☆ | go |
-| Day 19: An Elephant Named Joseph | ☆☆ | go |
-| Day 20: Firewall Rules | ☆☆ | go |
-| Day 21: Scrambled Letters and Hash | ☆☆ | go |
-| Day 22: Grid Computing | ☆☆ | go |
-| Day 23: Safe Cracking | ☆☆ | go |
-| Day 24: Air Duct Spelunking | ☆☆ | go |
-| Day 25: Clock Signal | ☆☆ | go |
-
+ | Day 1 | ☆☆ | go (template) |
+     | Day 2 | ☆☆ | go (template) |
+     | Day 3 | ☆☆ | go (template) |
+     | Day 4 | ☆☆ | go (template) |
+     | Day 5 | ☆☆ | go (template) |
+     | Day 6 | ☆☆ | go (template) |
+     | Day 7 | ☆☆ | go (template) |
+     | Day 8 | ☆☆ | go (template) |
+     | Day 9 | ☆☆ | go (template) |
+     | Day 10 | ☆☆ | go (template) |
+     | Day 11 | ☆☆ | go (template) |
+     | Day 12 | ☆☆ | go (template) |
+     | Day 13 | ☆☆ | go (template) |
+     | Day 14 | ☆☆ | go (template) |
+     | Day 15 | ☆☆ | go (template) |
+     | Day 16 | ☆☆ | go (template) |
+     | Day 17 | ☆☆ | go (template) |
+     | Day 18 | ☆☆ | go (template) |
+     | Day 19 | ☆☆ | go (template) |
+     | Day 20 | ☆☆ | go (template) |
+     | Day 21 | ☆☆ | go (template) |
+     | Day 22 | ☆☆ | go (template) |
+     | Day 23 | ☆☆ | go (template) |
+     | Day 24 | ☆☆ | go (template) |
+     | Day 25 | ☆☆ | go (template) |
+    
 ## 2024
 
-> 🌟 7/50 🌟
+> 🌟 7/50 🌟 (14%)
 
 | Day | Status | Language |
 | --- | :---: | --- |
-| Day 1: Historian Hysteria | ★★ | go |
-| Day 2: Red-Nosed Reports | ★★ | go |
-| Day 3: Mull It Over | ★★ | go |
-| Day 4: Ceres Search | ★☆ | go |
-| Day 5: Print Queue | ☆☆ | go |
-| Day 6: Guard Gallivant | ☆☆ | go |
-| Day 7: Bridge Repair | ☆☆ | go |
-| Day 8: Resonant Collinearity | ☆☆ | go |
-| Day 9: Disk Fragmenter | ☆☆ | go |
-| Day 10: Hoof It | ☆☆ | go |
-| Day 11: Plutonian Pebbles | ☆☆ | go |
-| Day 12: Garden Groups | ☆☆ | go |
-| Day 13: Claw Contraption | ☆☆ | go |
-| Day 14: Restroom Redoubt | ☆☆ | go |
-| Day 15: Warehouse Woes | ☆☆ | go |
-| Day 16: Reindeer Maze | ☆☆ | go |
-| Day 17: Chronospatial Computer | ☆☆ | go |
-| Day 18: RAM Run | ☆☆ | go |
-| Day 19: Linen Layout | ☆☆ | go |
-| Day 20: Race Condition | ☆☆ | go |
-| Day 21: Keypad Conundrum | ☆☆ | go |
-| Day 22: Monkey Market | ☆☆ | go |
-| Day 23: LAN Party | ☆☆ | go |
-| Day 24: Crossed Wires | ☆☆ | go |
-| Day 25: Code Chronicle | ☆☆ | go |
+ | Day 1: Historian Hysteria | ★★ | go |
+     | Day 2: Red-Nosed Reports | ★★ | go |
+     | Day 3: Mull It Over | ★★ | go |
+     | Day 4: Ceres Search | ★☆ | go |
+     | Day 5: Print Queue | ☆☆ | go (template) |
+     | Day 6: Guard Gallivant | ☆☆ | go (template) |
+     | Day 7: Bridge Repair | ☆☆ | go (template) |
+     | Day 8: Resonant Collinearity | ☆☆ | go (template) |
+     | Day 9: Disk Fragmenter | ☆☆ | go (template) |
+     | Day 10: Hoof It | ☆☆ | go |
+     | Day 11: Plutonian Pebbles | ☆☆ | go (template) |
+     | Day 12: Garden Groups | ☆☆ | go (template) |
+     | Day 13: Claw Contraption | ☆☆ | go (template) |
+     | Day 14: Restroom Redoubt | ☆☆ | go (template) |
+     | Day 15: Warehouse Woes | ☆☆ | go (template) |
+     | Day 16: Reindeer Maze | ☆☆ | go (template) |
+     | Day 17: Chronospatial Computer | ☆☆ | go (template) |
+     | Day 18: RAM Run | ☆☆ | go (template) |
+     | Day 19: Linen Layout | ☆☆ | go (template) |
+     | Day 20: Race Condition | ☆☆ | go (template) |
+     | Day 21: Keypad Conundrum | ☆☆ | go (template) |
+     | Day 22: Monkey Market | ☆☆ | go (template) |
+     | Day 23: LAN Party | ☆☆ | go (template) |
+     | Day 24: Crossed Wires | ☆☆ | go (template) |
+     | Day 25: Code Chronicle | ☆☆ | go (template) |
+    
+## 2025
 
-## Other people doing the Advent of Code
+> 🌟 4/8 🌟 (50%)
 
-- [@bmtavares](https://github.com/bmtavares/adventofcode)
+| Day | Status | Language |
+| --- | :---: | --- |
+ | Day 1: Secret Entrance | ★★ | js |
+     | Day 2: Gift Shop | ★★ | js |
+     | Day 3: Lobby | ☆☆ | js |
+     | Day 4: Printing Department | ☆☆ | js |
+    
 
+## 🔗 Links
+
+- [Advent of Code Website](https://adventofcode.com/)
+- [My GitHub Profile](https://github.com/BrunMartins)
+
+## 👥 Other People Doing Advent of Code
+
+---
+*README generated on December 04, 2025 at 17:41*

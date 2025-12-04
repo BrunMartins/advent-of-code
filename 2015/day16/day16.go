@@ -1,10 +1,12 @@
-// Day16
+//Day16
 package main
 
 import (
 	"advent-of-code/common"
 	"bufio"
 	"os"
+	"time"
+	"log"
 )
 
 var (
@@ -19,6 +21,8 @@ func getInputLineScanner() *bufio.Scanner {
 }
 
 func main() {
+	start := time.Now()
+
 	var err error
 	puzzleInput, err = common.OpenPuzzleInput(nil)
 
@@ -28,5 +32,8 @@ func main() {
 
 	println(puzzleInput)
 
-	// Content here
+	//Content here
+
+	elapsed := time.Since(start)
+	log.Printf("Binomial took %s", elapsed)
 }
