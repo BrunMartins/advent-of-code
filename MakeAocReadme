@@ -1,93 +1,167 @@
 #!/bin/bash
+
+# Advent of Code README Generator
+# Generates a comprehensive README.md from the project structure
+
+set -euo pipefail
+
 # Get the target directory (default to current directory if not provided)
 TARGET_DIR=${1:-$(pwd)}
+if [[ ! -d "$TARGET_DIR" ]]; then
+  echo "Error: Directory '$TARGET_DIR' does not exist" >&2
+  exit 1
+fi
+
+echo "Generating README for: $TARGET_DIR"
 
 EDITIONS="" 
-
 YEARS=""
-
 TOTAL_STARS=0
 TOTAL_COMPLETED_STARS=0
 
-for year in $(find . -maxdepth 1 -type d -not -name "common" -not -name ".git" -not -name "." | sed 's|^\./||' | sort -n); do
-  days=$(find ./$year -maxdepth 1 -type d -not -name "." -not -name "$year" | sed 's|^\./||' | sort -n)
+for year in $(find . -maxdepth 1 -type d -regextype posix-extended -regex './[0-9]{4}' | sed 's|^\./||' | sort -n); do
+  days=$(find "./$year" -maxdepth 1 -type d -regextype posix-extended -regex ".*/day[0-9]{2}" | sed "s|^\./$year/||" | sort -V)
   
-  YEAR_TOTAL_STARS=$((2 * $(echo "$days" | wc -l)))
+  day_count=$(echo "$days" | wc -w)
+  echo "  Found $day_count days in $year"
+  
+  YEAR_TOTAL_STARS=$((2 * day_count))
   YEAR_COMPLETED_STARS=0
 
   TOTAL_STARS=$((TOTAL_STARS + YEAR_TOTAL_STARS))
+  echo "  Year total stars: $YEAR_TOTAL_STARS, Running total: $TOTAL_STARS"
 
   EDITIONS="${EDITIONS}
   - [$year](#$year)"
 
   DAY_RESULTS=""
   for day in $days; do
+    # Get puzzle name
+    day_num=$(echo "$day" | sed 's/day0*//')
+    day_path="./$year/$day"
+    
+    if [[ -f "$day_path/puzzleName" ]]; then
+      puzzle_name=$(cat "$day_path/puzzleName" 2>/dev/null || echo "Day $day_num")
+    else
+      puzzle_name="Day $day_num"
+    fi
 
-    DAY_RESULTS="$DAY_RESULTS | $(cat ./$day/puzzleName) |"
+    DAY_RESULTS="$DAY_RESULTS | $puzzle_name |"
 
-    if [[ -f "./$day/completed" ]]; then
-      value=$(cat ./$day/completed)
+    # Check how many stars have been obtained
+    if [[ -f "$day_path/completed" ]]; then
+      value=$(cat "$day_path/completed" 2>/dev/null | tr -d '[:space:]')
       case "$value" in
         1) 
           DAY_RESULTS="$DAY_RESULTS ★☆ |"
-          YEAR_COMPLETED_STARS=$(($YEAR_COMPLETED_STARS+1))
+          YEAR_COMPLETED_STARS=$((YEAR_COMPLETED_STARS + 1))
           ;;
         2) 
           DAY_RESULTS="$DAY_RESULTS ★★ |"
-          YEAR_COMPLETED_STARS=$(($YEAR_COMPLETED_STARS+2))
+          YEAR_COMPLETED_STARS=$((YEAR_COMPLETED_STARS + 2))
           ;;
-        *) DAY_RESULTS="$DAY_RESULTS ☆☆ |" ;;
+        *) 
+          DAY_RESULTS="$DAY_RESULTS ☆☆ |" ;;
       esac
     else
-      DAY_RESULTS="$DAY_RESULTS . |"
+      DAY_RESULTS="$DAY_RESULTS ☆☆ |"
     fi
 
-    DAY_RESULTS="$DAY_RESULTS go |
+    LANGUAGES=""
+    
+    # Check Go file - template is about 42 lines, consider 50+ lines as "substantial work"
+    if ls "$day_path/"*.go 1> /dev/null 2>&1; then
+      go_lines=$(wc -l < "$day_path/"*.go 2>/dev/null | tr -d ' ')
+      if [[ $go_lines -gt 50 ]]; then
+        LANGUAGES="go"
+      fi
+    fi
+    
+    # Check JS file - template is about 30 lines, consider 40+ lines as "substantial work"  
+    if ls "$day_path/"*.js 1> /dev/null 2>&1; then
+      js_lines=$(wc -l < "$day_path/"*.js 2>/dev/null | tr -d ' ')
+      if [[ $js_lines -gt 40 ]]; then
+        if [[ -n "$LANGUAGES" ]]; then
+          LANGUAGES="$LANGUAGES, js"
+        else
+          LANGUAGES="js"
+        fi
+      fi
+    fi
+    
+    # If no substantial work detected, show what files exist with (template) indicator
+    if [[ -z "$LANGUAGES" ]]; then
+      if ls "$day_path/"*.go 1> /dev/null 2>&1 && ls "$day_path/"*.js 1> /dev/null 2>&1; then
+        LANGUAGES="go, js (templates)"
+      elif ls "$day_path/"*.go 1> /dev/null 2>&1; then
+        LANGUAGES="go (template)"
+      elif ls "$day_path/"*.js 1> /dev/null 2>&1; then
+        LANGUAGES="js (template)"
+      else
+        LANGUAGES="—"
+      fi
+    fi
+
+    DAY_RESULTS="$DAY_RESULTS $LANGUAGES |
     "
   done
 
-  TOTAL_COMPLETED_STARS=$(($TOTAL_COMPLETED_STARS+$YEAR_COMPLETED_STARS))
+  TOTAL_COMPLETED_STARS=$((TOTAL_COMPLETED_STARS + YEAR_COMPLETED_STARS))
+  YEAR_PERCENTAGE=$((YEAR_COMPLETED_STARS * 100 / YEAR_TOTAL_STARS))
 
   YEARS="$YEARS
-  ## $year
+## $year
 
-  > 🌟 $YEAR_COMPLETED_STARS/$YEAR_TOTAL_STARS 🌟
+> 🌟 $YEAR_COMPLETED_STARS/$YEAR_TOTAL_STARS 🌟 ($YEAR_PERCENTAGE%)
 
-  | Day | Status | Language |
-  | --- | :---: | --- |
-  $DAY_RESULTS"
+| Day | Status | Language |
+| --- | :---: | --- |
+$DAY_RESULTS"
 done
 
-# Ensure all leading whitespace is removed from generated YEARS content
-YEARS=$(echo "$YEARS" | sed 's/^[[:space:]]*//')
+echo "Final totals: $TOTAL_COMPLETED_STARS/$TOTAL_STARS stars"
 
-GLOBAL_TOTAL_STARS=0
-GLOBAL_COMPLETED_STARS=0
+# Calculate overall completion
+if [[ $TOTAL_STARS -gt 0 ]]; then
+  OVERALL_PERCENTAGE=$((TOTAL_COMPLETED_STARS * 100 / TOTAL_STARS))
+else
+  OVERALL_PERCENTAGE=0
+  echo "Warning: No stars found, setting percentage to 0"
+fi
 
-# Write the README.md file
+GENERATION_DATE=$(date '+%B %d, %Y at %H:%M')
+
 cat <<EOF > "$TARGET_DIR/README.md"
-
 # Advent of Code
 
-### Editions:
----
+*My solutions for [Advent of Code](https://adventofcode.com/) challenges.*
+
+## 📊 Overall Progress
+
+> **🌟 $TOTAL_COMPLETED_STARS/$TOTAL_STARS 🌟** ($OVERALL_PERCENTAGE% complete)
+
+## 📅 Editions
+
 $EDITIONS
 
 ---
-### Completed Stars/Total Stars:
-
-> **🌟 $TOTAL_COMPLETED_STARS/$TOTAL_STARS 🌟**
 
 $YEARS
 
-## Other people doing the Advent of Code
+## 🔗 Links
 
-- [@bmtavares](https://github.com/bmtavares/adventofcode)
+- [Advent of Code Website](https://adventofcode.com/)
+- [My GitHub Profile](https://github.com/BrunMartins)
 
+## 👥 Other People Doing Advent of Code
+
+---
+*README generated on $GENERATION_DATE*
 EOF
 
-# Run a Markdown formatter and remove extra blank lines
-# pandoc --from=markdown --to=markdown -s "$TARGET_DIR/README.md" -o "$TARGET_DIR/README.md"
-
-# Inform the user
-echo "README.md generated successfully in $TARGET_DIR"
+# Inform the user with statistics
+echo "✅ README.md generated successfully!"
+echo "📊 Statistics:"
+echo "   - Total Stars: $TOTAL_COMPLETED_STARS/$TOTAL_STARS ($OVERALL_PERCENTAGE%)"
+echo "   - Years Processed: $(echo "$EDITIONS" | grep -c '\- \[')"
+echo "   - Output: $TARGET_DIR/README.md"
